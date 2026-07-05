@@ -1,0 +1,64 @@
+# Skarp backend: Netlify bygger från detta GitHub-repo, och ägaren
+# loggar in på /admin via GitHub (OAuth sätts upp i Netlify).
+backend:
+  name: github
+  repo: moontwister/karlstorps4x4
+  branch: main
+
+# Proxyn nås publikt via Caddy på samma subdomän.
+# allowed_hosts krävs för att Decap ska tillåta lokalläget utanför localhost.
+local_backend:
+  url: https://karlstorp.020900.xyz/api/v1
+  allowed_hosts:
+    - karlstorp.020900.xyz
+
+# Var bilder sparas (på disk) och hur de refereras i den publika sidan
+media_folder: "src/assets/uploads"
+public_folder: "/assets/uploads"
+
+locale: sv
+
+collections:
+  # 1) Sidans texter och kontaktuppgifter (en enda fil)
+  - name: "installningar"
+    label: "Sidtexter & kontakt"
+    files:
+      - name: "site"
+        label: "Startsida & kontakt"
+        file: "src/_data/site.json"
+        fields:
+          - { label: "Företagsnamn", name: "brand", widget: "string" }
+          - { label: "Undertext i loggan", name: "nav_sub", widget: "string" }
+          - { label: "Hero – etikett", name: "hero_tag", widget: "string" }
+          - { label: "Hero – rubrik rad 1", name: "hero_heading_1", widget: "string" }
+          - { label: "Hero – rubrik (framhävd)", name: "hero_heading_em", widget: "string" }
+          - { label: "Hero – ingress", name: "hero_lead", widget: "text" }
+          - { label: "Telefon", name: "phone", widget: "string" }
+          - { label: "E-post", name: "email", widget: "string" }
+          - { label: "Produkter – etikett", name: "products_label", widget: "string" }
+          - { label: "Produkter – rubrik", name: "products_title", widget: "string" }
+          - { label: "Produkter – underrubrik", name: "products_sub", widget: "text" }
+          - { label: "Produkter – text under listan", name: "products_cta", widget: "text" }
+          - { label: "Om oss – rubrik", name: "about_title", widget: "string" }
+          - { label: "Om oss – stycke 1", name: "about_p1", widget: "text" }
+          - { label: "Om oss – stycke 2", name: "about_p2", widget: "text" }
+          - { label: "Om oss – stycke 3", name: "about_p3", widget: "text" }
+          - { label: "Kontakt – rubrik", name: "contact_title", widget: "string" }
+          - { label: "Kontakt – underrubrik", name: "contact_sub", widget: "text" }
+
+  # 2) Produkter (ägaren lägger till/tar bort fritt)
+  - name: "produkter"
+    label: "Produkter"
+    label_singular: "Produkt"
+    folder: "src/products"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    sortable_fields: ["order", "title"]
+    fields:
+      - { label: "Namn", name: "title", widget: "string" }
+      - { label: "Märkning", name: "badge", widget: "select", options: ["Nytt", "Begagnad"], default: "Nytt", required: false }
+      - { label: "Pris (valfritt)", name: "price", widget: "string", required: false }
+      - { label: "Sorteringsordning", name: "order", widget: "number", default: 99, value_type: "int" }
+      - { label: "Bild", name: "image", widget: "image", required: false }
+      - { label: "Beskrivning", name: "body", widget: "text" }

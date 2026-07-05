@@ -1,0 +1,245 @@
+---
+layout: base.njk
+---
+{% set tel = site.phone | replace(" ", "") | replace("-", "") %}
+<!-- HERO -->
+<section class="hero" id="hem">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">{{ site.hero_tag }}</div>
+      <h1>{{ site.hero_heading_1 }}<br/><em>{{ site.hero_heading_em }}</em></h1>
+      <p class="hero-lead">{{ site.hero_lead }}</p>
+      <div class="hero-btns">
+        <a href="#produkter" class="btn btn-primary">Se sortimentet</a>
+        <a href="tel:{{ tel }}" class="btn btn-outline">📞 {{ site.phone }}</a>
+      </div>
+      <div class="hero-pills">
+        <span class="hero-pill">Volvo L3314 / Valpen</span>
+        <span class="hero-pill">Pltgb 903 / TGB 11</span>
+        <span class="hero-pill">Volvo C202 Lapplander</span>
+        <span class="hero-pill">Jeep</span>
+        <span class="hero-pill">IH-Scout</span>
+      </div>
+    </div>
+    <div>
+      <div class="hero-photos">
+        <div class="hero-photo">
+          <img src="/assets/uploads/hero-valp903.jpg" alt="Volvo Valp" />
+          <span class="hero-photo-label">Volvo Valp</span>
+        </div>
+        <div class="hero-photo">
+          <img src="/assets/uploads/hero-valp903-1.jpg" alt="Volvo Valp detalj" />
+          <span class="hero-photo-label">L3314 / TGB 11</span>
+        </div>
+        <div class="hero-photo">
+          <img src="/assets/uploads/hero-veteran.jpg" alt="Volvo Valp" />
+          <span class="hero-photo-label">Veteranfordon</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE STRIP -->
+<div class="value-strip" aria-label="Våra fördelar">
+  <div class="value-strip-inner">
+    <div class="value-item">
+      <div class="value-icon" aria-hidden="true">🛠️</div>
+      <div class="value-text"><strong>Nya & begagnade</strong><span>Delar i alla skick</span></div>
+    </div>
+    <div class="value-item">
+      <div class="value-icon" aria-hidden="true">📞</div>
+      <div class="value-text"><strong>Personlig service</strong><span>Ring eller maila</span></div>
+    </div>
+    <div class="value-item">
+      <div class="value-icon" aria-hidden="true">📦</div>
+      <div class="value-text"><strong>Post eller avhämtning</strong><span>Skickas i hela landet</span></div>
+    </div>
+    <div class="value-item">
+      <div class="value-icon" aria-hidden="true">🚙</div>
+      <div class="value-text"><strong>Specialiserade på Valp</strong><span>Och liknande terrängbilar</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section id="produkter">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">{{ site.products_label }}</div>
+      <h2 class="section-title">{{ site.products_title }}</h2>
+      <p class="section-sub">{{ site.products_sub }}</p>
+    </div>
+    <div class="products-grid">
+      {% for product in collections.products %}
+      <article class="product-card">
+        <div class="product-img">
+          {% if product.data.image %}<img loading="lazy" src="{{ product.data.image }}" alt="{{ product.data.title }}" />{% endif %}
+          {% if product.data.badge %}<div class="product-badge{% if product.data.badge == 'Begagnad' %} used{% endif %}">{{ product.data.badge }}</div>{% endif %}
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">{{ product.data.title }}</h3>
+          <div class="product-desc">{{ product.templateContent | safe }}</div>
+          {% if product.data.price %}<div class="product-price">{{ product.data.price }}</div>{% endif %}
+        </div>
+        <div class="product-footer">
+          <a href="#kontakt" class="btn-card">{% if product.data.price %}Fråga om köp{% else %}Fråga om pris{% endif %}</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    <p class="products-cta">
+      {{ site.products_cta }}<br/>
+      <a href="#kontakt">Kontakta oss</a> för att fråga om just din del.
+    </p>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section id="historia">
+  <div class="container">
+    <div class="history-grid">
+      <div>
+        <div class="section-label">Bakgrund</div>
+        <h2 class="section-title">Valpens historia</h2>
+        <p class="section-sub" style="margin-bottom:44px;">Volvo Valp är ett legendariskt militärfordon med lång historia i det svenska försvaret.</p>
+        <div class="history-timeline">
+          <div class="timeline-item">
+            <div class="timeline-year">1961–1970</div>
+            <h3 class="timeline-title">Volvo L3314 / Personlastterrängbil 903</h3>
+            <p class="timeline-text">Volvo L3314 – mest känd som "Valpen" – tillverkades för det svenska försvaret. Militär beteckning var Personlastterrängbil 903, civil benämning Lapplander. B18-motor, M40-växellåda och Dana 44-axlar gav fordonet sitt rykte om enkel mekanik och hög driftsäkerhet.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">1960–80-tal</div>
+            <h3 class="timeline-title">Populär som terrängbrandbil</h3>
+            <p class="timeline-text">Vid sidan av tjänsten i försvaret blev Valpen mycket uppskattad som terrängbrandbil hos brandkårer runt om i landet, samt av Televerket och kraftbolagen.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">1977–1981</div>
+            <h3 class="timeline-title">Volvo C202 Lapplander</h3>
+            <p class="timeline-text">Volvo försökte återlansera modellen som en billigare terrängbil – tillverkad av Csepel i Ungern med B20-motor och M45-låda. Cirka 3 000 exemplar producerades innan tillverkningen lades ned 1981.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">Idag</div>
+            <h3 class="timeline-title">Levande veteranbilskultur</h3>
+            <p class="timeline-text">Valpen är ett älskat veteranfordon. Vi på Karlstorps lagerhåller delar så att Valpen och liknande terrängbilar kan fortsätta rulla i många år till.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="border-radius:12px; overflow:hidden; margin-bottom:24px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+          <img loading="lazy" src="/assets/uploads/valp2.jpg" alt="Volvo Valp – L3314 / TGB 11" style="width:100%; height:auto; display:block;" />
+        </div>
+        <div class="compat-card">
+          <div class="compat-title">Kompatibla fordon</div>
+          <p class="compat-sub-title">Vi har delar till följande modeller:</p>
+          <div class="compat-list">
+            <div class="compat-item"><div class="compat-dot"></div><span class="compat-name">Volvo L3314 / Valpen</span><span class="compat-sub">1961–1970</span></div>
+            <div class="compat-item"><div class="compat-dot"></div><span class="compat-name">Pltgb 903 / TGB 11</span><span class="compat-sub">Militärbeteckning</span></div>
+            <div class="compat-item"><div class="compat-dot"></div><span class="compat-name">Volvo C202 Lapplander</span><span class="compat-sub">1977–1981</span></div>
+            <div class="compat-item"><div class="compat-dot"></div><span class="compat-name">Jeep</span><span class="compat-sub">Kompatibla delar</span></div>
+            <div class="compat-item"><div class="compat-dot"></div><span class="compat-name">IH-Scout</span><span class="compat-sub">Kompatibla delar</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="om-oss">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-label">Om oss</div>
+        <h2 class="section-title">{{ site.about_title }}</h2>
+        <p>{{ site.about_p1 }}</p>
+        <p>{{ site.about_p2 }}</p>
+        <p>{{ site.about_p3 }}</p>
+        <a href="#kontakt" class="btn btn-primary" style="margin-top:16px;">Kontakta oss idag</a>
+      </div>
+      <div>
+        <div class="about-card">
+          <div class="about-card-title">Kontakta oss direkt</div>
+          <a href="tel:{{ tel }}" class="contact-line" style="text-decoration:none;">
+            <div class="contact-line-icon" aria-hidden="true">📞</div>
+            <div><div class="contact-line-label">Telefon</div><div class="contact-line-value">{{ site.phone }}</div></div>
+          </a>
+          <a href="mailto:{{ site.email }}" class="contact-line" style="text-decoration:none;">
+            <div class="contact-line-icon" aria-hidden="true">✉️</div>
+            <div><div class="contact-line-label">E-post</div><div class="contact-line-value">{{ site.email }}</div></div>
+          </a>
+          <div class="contact-line">
+            <div class="contact-line-icon" aria-hidden="true">🚚</div>
+            <div><div class="contact-line-label">Leverans</div><div class="contact-line-value" style="font-size:14px; color:rgba(255,255,255,0.7); font-weight:400;">Skickas med post eller avhämtas</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="kontakt">
+  <div class="container">
+    <div class="section-header" style="text-align:center; max-width:580px; margin:0 auto 56px;">
+      <div class="section-label">Kontakt</div>
+      <h2 class="section-title">{{ site.contact_title }}</h2>
+      <p class="section-sub" style="margin:0 auto;">{{ site.contact_sub }}</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info-cards">
+        <a href="tel:{{ tel }}" class="contact-info-card">
+          <div class="contact-info-icon" aria-hidden="true">📞</div>
+          <div><div class="contact-info-label">Telefon</div><div class="contact-info-value">{{ site.phone }}</div></div>
+        </a>
+        <a href="mailto:{{ site.email }}" class="contact-info-card">
+          <div class="contact-info-icon" aria-hidden="true">✉️</div>
+          <div><div class="contact-info-label">E-post</div><div class="contact-info-value">{{ site.email }}</div></div>
+        </a>
+        <div class="contact-info-card">
+          <div class="contact-info-icon" aria-hidden="true">📦</div>
+          <div><div class="contact-info-label">Leverans</div><div class="contact-info-value" style="font-size:15px; font-weight:500;">Post eller avhämtning</div></div>
+        </div>
+      </div>
+      <div class="contact-form-card">
+        <div class="form-title">Skicka ett meddelande</div>
+        <p class="form-sub">Beskriv vilken del du söker och vilket fordon det gäller. Knappen öppnar ditt e-postprogram.</p>
+        <form id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Namn</label>
+              <input type="text" id="name" name="name" placeholder="Ditt namn" required autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label for="email">E-post</label>
+              <input type="email" id="email" name="email" placeholder="din@epost.se" autocomplete="email" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" name="phone" placeholder="070-000 00 00" autocomplete="tel" />
+          </div>
+          <div class="form-group">
+            <label for="vehicle">Fordonsmodell</label>
+            <select id="vehicle" name="vehicle">
+              <option value="">Välj fordonsmodell</option>
+              <option>Volvo L3314 / Valpen</option>
+              <option>Pltgb 903 / TGB 11</option>
+              <option>Volvo C202 Lapplander</option>
+              <option>Jeep</option>
+              <option>IH-Scout</option>
+              <option>Annan / Vet ej</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Meddelande</label>
+            <textarea id="message" name="message" placeholder="Beskriv vilken del du söker..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Öppna e-post →</button>
+          <p class="form-helper">Du kan också ringa direkt: <a href="tel:{{ tel }}" style="color:var(--green); font-weight:600;">{{ site.phone }}</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

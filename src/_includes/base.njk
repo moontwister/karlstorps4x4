@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ site.brand }} – Delar & Tillbehör till Volvo Valp, C202 & TGB 11</title>
+  <meta name="description" content="{{ site.hero_lead }}" />
+  <meta name="theme-color" content="#3d5a3e" />
+
+  <!-- Favicon: SVG badge with military green '4×4' -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%233d5a3e'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='22' font-weight='800' fill='%23c9b89a' text-anchor='middle'%3E4%C3%974%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+</head>
+<body>
+
+<a href="#produkter" class="skip-link">Hoppa till innehåll</a>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hem" class="nav-logo" aria-label="{{ site.brand }} – tillbaka till start">
+      <div class="nav-logo-badge" aria-hidden="true">4×4</div>
+      <span class="nav-logo-text">KARLSTORPS<small>{{ site.nav_sub }}</small></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#produkter" data-target="produkter">Produkter</a></li>
+      <li><a href="#historia" data-target="historia">Valpens historia</a></li>
+      <li><a href="#om-oss" data-target="om-oss">Om oss</a></li>
+      <li><a href="#kontakt" class="nav-cta" data-target="kontakt">Kontakta oss</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Öppna meny" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+{{ content | safe }}
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">KARLSTORPS 4×4</div>
+    <div style="color:rgba(255,255,255,0.3); font-size:13px;">
+      © <span id="year">2026</span> {{ site.brand }} · Delar till Volvo Valp & militärfordon
+    </div>
+    <div class="footer-links">
+      <a href="#produkter">Produkter</a>
+      <a href="#historia">Historia</a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
+  </div>
+</footer>
+
+<button class="back-top" id="backTop" aria-label="Tillbaka till toppen">↑</button>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const ham = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  ham.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    ham.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      ham.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  const navEl = document.querySelector('nav');
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    navEl.style.boxShadow = y > 20 ? '0 2px 20px rgba(0,0,0,0.35)' : 'none';
+    backTop.classList.toggle('visible', y > 600);
+  }, { passive: true });
+
+  backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  const sections = document.querySelectorAll('section[id]');
+  const navAnchors = document.querySelectorAll('.nav-links a[data-target]');
+  const setActive = id => {
+    navAnchors.forEach(a => a.classList.toggle('active', a.dataset.target === id));
+  };
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+    sections.forEach(s => obs.observe(s));
+  }
+
+  const cf = document.getElementById('contactForm');
+  if (cf) cf.addEventListener('submit', e => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const name = data.get('name') || '';
+    const email = data.get('email') || '';
+    const phone = data.get('phone') || '';
+    const vehicle = data.get('vehicle') || '';
+    const message = data.get('message') || '';
+    const subject = encodeURIComponent(`Förfrågan från ${name}${vehicle ? ' – ' + vehicle : ''}`);
+    const bodyLines = [ message, '', '---', `Namn: ${name}`, email ? `E-post: ${email}` : '', phone ? `Telefon: ${phone}` : '', vehicle ? `Fordon: ${vehicle}` : '' ].filter(Boolean).join('\n');
+    window.location.href = `mailto:{{ site.email }}?subject=${subject}&body=${encodeURIComponent(bodyLines)}`;
+  });
+</script>
+
+</body>
+</html>

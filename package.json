@@ -1,0 +1,17 @@
+{
+  "name": "karlstorps4x4",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Karlstorps 4×4 – 11ty + Decap CMS. Källa för karlstorps4x4.se.",
+  "scripts": {
+    "build": "eleventy",
+    "start": "eleventy --serve",
+    "cms": "decap-server"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  },
+  "devDependencies": {
+    "decap-server": "^3.9.1"
+  }
+}
