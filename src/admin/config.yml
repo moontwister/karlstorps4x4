@@ -5,13 +5,6 @@ backend:
   repo: moontwister/karlstorps4x4
   branch: main
 
-# Proxyn nås publikt via Caddy på samma subdomän.
-# allowed_hosts krävs för att Decap ska tillåta lokalläget utanför localhost.
-local_backend:
-  url: https://karlstorp.020900.xyz/api/v1
-  allowed_hosts:
-    - karlstorp.020900.xyz
-
 # Var bilder sparas (på disk) och hur de refereras i den publika sidan
 media_folder: "src/assets/uploads"
 public_folder: "/assets/uploads"
@@ -22,6 +15,8 @@ collections:
   # 1) Sidans texter och kontaktuppgifter (en enda fil)
   - name: "installningar"
     label: "Sidtexter & kontakt"
+    editor:
+      preview: false
     files:
       - name: "site"
         label: "Startsida & kontakt"
@@ -55,10 +50,12 @@ collections:
     slug: "{{slug}}"
     summary: "{{title}}"
     sortable_fields: ["order", "title"]
+    editor:
+      preview: false
     fields:
       - { label: "Namn", name: "title", widget: "string" }
-      - { label: "Märkning", name: "badge", widget: "select", options: ["Nytt", "Begagnad"], default: "Nytt", required: false }
-      - { label: "Pris (valfritt)", name: "price", widget: "string", required: false }
-      - { label: "Sorteringsordning", name: "order", widget: "number", default: 99, value_type: "int" }
-      - { label: "Bild", name: "image", widget: "image", required: false }
-      - { label: "Beskrivning", name: "body", widget: "text" }
+      - { label: "Märkning", name: "badge", widget: "select", options: ["Nytt", "Begagnad"], default: "Nytt", required: false, hint: "Nytt eller Begagnad – syns som liten etikett på produktkortet." }
+      - { label: "Pris", name: "price", widget: "string", required: false, hint: "Skriv t.ex. 1 000 kr. Lämna tomt om priset gäller på förfrågan." }
+      - { label: "Sorteringsordning", name: "order", widget: "number", default: 99, value_type: "int", hint: "Lägre tal hamnar högre upp i listan." }
+      - { label: "Bild", name: "image", widget: "image", required: false, hint: "Liggande foto ser bäst ut. Lämna tomt om du inte har en bild ännu." }
+      - { label: "Beskrivning", name: "body", widget: "markdown", hint: "Kort beskrivning av delen. Du kan använda fetstil och punktlistor." }
