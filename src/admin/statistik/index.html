@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Besöksstatistik – Karlstorps 4×4</title>
+  <style>
+    :root { --green: #3d5a3e; --sand: #f2ede3; }
+    * { box-sizing: border-box; margin: 0; }
+    body { font-family: Inter, system-ui, sans-serif; background: var(--sand); display: flex; flex-direction: column; height: 100vh; }
+    header { background: var(--green); color: #fff; padding: 0.7rem 1rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    header h1 { font-size: 1.05rem; font-weight: 600; }
+    header a { color: #fff; opacity: 0.85; font-size: 0.9rem; }
+    iframe { flex: 1; width: 100%; border: 0; background: #fff; }
+    .fallback { padding: 1rem; font-size: 0.9rem; color: #444; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Besöksstatistik</h1>
+    <a href="/admin/">&larr; Tillbaka till redigeringen</a>
+    <a href="https://karlstorps4x4.goatcounter.com" target="_blank" rel="noopener">Öppna i eget fönster</a>
+  </header>
+  <!-- Kräver i GoatCounter: publik dashboard + "Sites that can embed
+       GoatCounter" = karlstorps4x4.se, annars visas bara fallback-länken. -->
+  <iframe src="https://karlstorps4x4.goatcounter.com" title="GoatCounter-statistik"></iframe>
+  <p class="fallback">Visas ingen statistik ovan? <a href="https://karlstorps4x4.goatcounter.com" target="_blank" rel="noopener">Öppna statistiken i ett eget fönster</a>.</p>
+</body>
+</html>
