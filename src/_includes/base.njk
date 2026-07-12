@@ -109,6 +109,7 @@
     <div class="footer-logo">KARLSTORPS 4×4</div>
     <div style="color:rgba(255,255,255,0.3); font-size:13px;">
       © <span id="year">2026</span> {{ site.brand }} · Delar till Volvo Valp & militärfordon
+      <span id="visitorCount" hidden> · <span></span> besökare</span>
     </div>
     <div class="footer-links">
       <a href="#produkter">Produkter</a>
@@ -175,6 +176,19 @@
 
 <!-- GoatCounter – enkel, cookiefri besöksstatistik (dashboard länkad från /admin/statistik/) -->
 <script data-goatcounter="https://karlstorps4x4.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+<!-- Offentligt räkneverk i sidfoten: totalt antal unika besökare (från GoatCounter).
+     Döljs tyst om anropet misslyckas. -->
+<script>
+  fetch('https://karlstorps4x4.goatcounter.com/counter/TOTAL.json')
+    .then((r) => r.ok ? r.json() : Promise.reject())
+    .then((data) => {
+      const el = document.getElementById('visitorCount');
+      el.querySelector('span').textContent = Number(data.count_unique).toLocaleString('sv-SE');
+      el.hidden = false;
+    })
+    .catch(() => {});
+</script>
 
 </body>
 </html>
